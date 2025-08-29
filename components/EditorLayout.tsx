@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Header } from './Header'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from './ui/sheet'
+import { FlowView } from './FlowView'
 
 // Dummy komponenter for panelerne - disse vil blive implementeret senere
 const TableOfContents = () => <div className="p-4">Indholdsfortegnelse kommer her...</div>
@@ -88,10 +89,8 @@ export function EditorLayout() {
         )}
 
         {/* Hovedindhold - Editor */}
-        <div className="flex-1 h-[calc(100vh-3.5rem)] p-4">
-          <div className="h-full w-full rounded-lg border border-dashed flex items-center justify-center">
-            <span className="text-muted-foreground">Editor kommer her...</span>
-          </div>
+        <div className="flex-1 h-[calc(100vh-3.5rem)]">
+          <FlowView isSidebarOpen={isSidebarOpen} />
         </div>
 
         {/* Højre panel (Sheet) for Egenskaber, Chat, Terminal */}

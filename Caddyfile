@@ -1,3 +1,8 @@
-100.71.41.52 {
+{
+    http_port 8081
+}
+
+sw1.tail2d448.ts.net:5005 {
     reverse_proxy localhost:3000
+    tls /home/ubuntu/sw-repo/sw-2/sw1.tail2d448.ts.net.crt /home/ubuntu/sw-repo/sw-2/sw1.tail2d448.ts.net.key
 }
