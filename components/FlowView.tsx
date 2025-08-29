@@ -196,8 +196,6 @@ function NodeEditor({ nodeId }: NodeEditorProps) {
     queryKey: ['file', nodeId],
     queryFn: () => api.getFile(nodeId),
     enabled: !!nodeId,
-    refetchInterval: 15000, // Poll every 15 seconds for file content
-    refetchIntervalInBackground: true, // Keep polling file content in background for real-time updates
   })
 
   if (isLoading) {

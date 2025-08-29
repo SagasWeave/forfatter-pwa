@@ -14,7 +14,7 @@ interface HeaderProps {
   onSidebarToggle?: () => void
 }
 
-export function Header({ onMenuItemClick, isSidebarOpen = false, onSidebarToggle }: HeaderProps) {
+export function Header({ onMenuItemClick }: HeaderProps) {
   const [isCommandOpen, setIsCommandOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -93,19 +93,8 @@ export function Header({ onMenuItemClick, isSidebarOpen = false, onSidebarToggle
             </SheetContent>
           </Sheet>
 
-          {/* Sidebar Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-9 w-9 p-0"
-            onClick={onSidebarToggle}
-          >
-            {isSidebarOpen ? <PanelLeftClose className="h-6 w-6" /> : <PanelLeftOpen className="h-6 w-6" />}
-            <span className="sr-only">{isSidebarOpen ? 'Luk sidepanel' : 'Åbn sidepanel'}</span>
-          </Button>
-
           {/* Brand */}
-          <div className="flex items-center space-x-4">
+          <div className="flex-grow flex justify-center items-center space-x-4">
             <Logo className="h-8 w-8" />
             <span className="font-semibold text-lg">Forfatter</span>
           </div>

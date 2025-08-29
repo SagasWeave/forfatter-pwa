@@ -1,162 +1,138 @@
-const CACHE_NAME = 'forfatter-pwa-v1'
-const STATIC_CACHE_URLS = [
-  '/',
-  '/manifest.json',
-  '/icon-192.svg',
-  '/icon-512.svg'
-]
+const CACHE_NAME = 'forfatter-pwa-v3';
+const STATIC_CACHE = 'static-assets-v3';
+const IMAGE_CACHE = 'image-cache-v3';
+const API_CACHE = 'api-cache-v3';
 
-// Install event - cache static assets
+const ALL_CACHES = [
+  CACHE_NAME,
+  STATIC_CACHE,
+  IMAGE_CACHE,
+  API_CACHE
+];
+
+// Filer der skal pre-caches
+const PRECACHE_ASSETS = [
+  '/offline.html', // En fallback-side for offline-adgang
+  '/icon-192.svg',
+  '/icon-512.svg',
+  '/icon-512-maskable.svg'
+];
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Caching static assets')
-        return cache.addAll(STATIC_CACHE_URLS)
+        console.log('[SW] Pre-caching offline page');
+        return cache.addAll(PRECACHE_ASSETS);
       })
-      .then(() => {
-        console.log('Service worker installed')
-        return self.skipWaiting()
-      })
-  )
-})
+      .then(() => self.skipWaiting())
+  );
+});
 
-// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => {
-        return Promise.all(
-          cacheNames
-            .filter((cacheName) => cacheName !== CACHE_NAME)
-            .map((cacheName) => caches.delete(cacheName))
-        )
-      })
-      .then(() => {
-        console.log('Service worker activated')
-        return self.clients.claim()
-      })
-  )
-})
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (!ALL_CACHES.includes(cacheName)) {
+            console.log('[SW] Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+    .then(() => self.clients.claim())
+  );
+});
 
-// Fetch event - network first for API, cache first for static assets
 self.addEventListener('fetch', (event) => {
-  const { request } = event
-  const url = new URL(request.url)
+  const { request } = event;
 
-  // Skip non-GET requests
-  if (request.method !== 'GET') {
-    return
+  // API-kald (Network First)
+  if (request.url.includes('/api/')) {
+    event.respondWith(
+      caches.open(API_CACHE).then(cache => {
+        return fetch(request)
+          .then(response => {
+            if (response.ok) {
+              cache.put(request, response.clone());
+            }
+            return response;
+          })
+          .catch(() => cache.match(request).then(res => res || fetch(request))); // Fallback til cache, så til netværk igen
+      })
+    );
+    return;
   }
 
-  // API requests - network first with fallback
-  if (url.pathname.startsWith('/api/')) {
+  // Navigation (Network First, fallback til offline-side)
+  if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
-        .then((response) => {
-          // Clone response for caching
-          const responseClone = response.clone()
-          
-          // Cache successful responses
-          if (response.ok) {
-            caches.open(CACHE_NAME)
-              .then((cache) => cache.put(request, responseClone))
-          }
-          
-          return response
-        })
-        .catch(() => {
-          // Fallback to cache if network fails
-          return caches.match(request)
-            .then((cachedResponse) => {
-              if (cachedResponse) {
-                return cachedResponse
-              }
-              
-              // Return offline response for API calls
-              return new Response(
-                JSON.stringify({ error: 'Offline', message: 'No network connection' }),
-                {
-                  status: 503,
-                  statusText: 'Service Unavailable',
-                  headers: { 'Content-Type': 'application/json' }
-                }
-              )
-            })
-        })
-    )
-    return
+        .catch(() => caches.match('/offline.html'))
+    );
+    return;
   }
 
-  // Static assets - cache first
-  event.respondWith(
-    caches.match(request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse
-        }
-        
-        return fetch(request)
-          .then((response) => {
-            // Don't cache non-successful responses
-            if (!response.ok) {
-              return response
-            }
-            
-            // Clone response for caching
-            const responseClone = response.clone()
-            
-            caches.open(CACHE_NAME)
-              .then((cache) => cache.put(request, responseClone))
-            
-            return response
-          })
+  // Billeder (Cache First, med Stale-While-Revalidate logik)
+  if (request.destination === 'image') {
+    event.respondWith(
+      caches.open(IMAGE_CACHE).then(cache => {
+        return cache.match(request).then(response => {
+          const fetchPromise = fetch(request).then(networkResponse => {
+            cache.put(request, networkResponse.clone());
+            return networkResponse;
+          });
+          return response || fetchPromise;
+        });
       })
-  )
-})
+    );
+    return;
+  }
 
-// Handle background sync for offline actions
+  // Statiske filer (Cache First)
+  event.respondWith(
+    caches.open(STATIC_CACHE).then(cache => {
+      return cache.match(request)
+        .then(response => {
+          return response || fetch(request).then(networkResponse => {
+            cache.put(request, networkResponse.clone());
+            return networkResponse;
+          });
+        });
+    })
+  );
+});
+
 self.addEventListener('sync', (event) => {
   if (event.tag === 'background-sync') {
-    event.waitUntil(
-      // Handle queued offline actions
-      handleBackgroundSync()
-    )
+    event.waitUntil(handleBackgroundSync());
   }
-})
+});
 
-// Handle push notifications (placeholder)
 self.addEventListener('push', (event) => {
   if (event.data) {
-    const data = event.data.json()
-    
+    const data = event.data.json();
     event.waitUntil(
       self.registration.showNotification(data.title, {
         body: data.body,
         icon: '/icon-192.svg',
         badge: '/icon-192.svg',
-        tag: 'forfatter-notification'
+        tag: 'forfatter-notification',
       })
-    )
+    );
   }
-})
+});
 
-// Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
-  event.notification.close()
-  
-  event.waitUntil(
-    self.clients.openWindow('/')
-  )
-})
+  event.notification.close();
+  event.waitUntil(self.clients.openWindow('/'));
+});
 
-// Placeholder for background sync handler
 async function handleBackgroundSync() {
   try {
-    // Get queued actions from IndexedDB
-    // Process offline actions when back online
-    console.log('Background sync triggered')
+    console.log('Background sync triggered');
   } catch (error) {
-    console.error('Background sync failed:', error)
+    console.error('Background sync failed:', error);
   }
 }
