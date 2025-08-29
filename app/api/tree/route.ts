@@ -48,7 +48,7 @@ const mockTreeData: NodeT[] = [
 export async function GET() {
   try {
     // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 100))
+    // await new Promise(resolve => setTimeout(resolve, 100))
     
     return NextResponse.json(mockTreeData)
   } catch (error) {

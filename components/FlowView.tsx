@@ -15,12 +15,10 @@ export function FlowView({ isSidebarOpen }: FlowViewProps) {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
   const queryClient = useQueryClient()
 
-  // Hent træstrukturen med polling
+  // Hent træstrukturen
   const { data: tree, isLoading, error } = useQuery({
     queryKey: ['tree'],
     queryFn: api.getTree,
-    refetchInterval: 30000, // Poll every 30 seconds
-    refetchIntervalInBackground: true, // Continue polling when tab is not active
   })
 
   // Optimistic mutation for creating new nodes

@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from './ui
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from './ui/command'
 import { Menu, Search, FileText, MessageSquare, Terminal, Settings, PanelLeftOpen, PanelLeftClose } from 'lucide-react'
 import { ModeToggle } from '@/components/mode-toggle'
+import { Logo } from './Logo'
 
 interface HeaderProps {
   onMenuItemClick?: (item: string) => void
@@ -105,7 +106,7 @@ export function Header({ onMenuItemClick, isSidebarOpen = false, onSidebarToggle
 
           {/* Brand */}
           <div className="flex items-center space-x-4">
-            <img src="/logo.svg" alt="Forfatter" className="h-8 w-8" />
+            <Logo className="h-8 w-8" />
             <span className="font-semibold text-lg">Forfatter</span>
           </div>
 

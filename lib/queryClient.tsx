@@ -8,14 +8,13 @@ import { setQueryClient } from './api'
 const queryConfig = {
   defaultOptions: {
     queries: {
-      staleTime: 10 * 1000, // 10 seconds - very responsive for real-time updates
-      gcTime: 5 * 60 * 1000, // 5 minutes (formerly cacheTime)
-      retry: 2,
-      retryDelay: (attemptIndex: number) => Math.min(1000 * 2 ** attemptIndex, 30000),
-      refetchOnWindowFocus: true, // Enable automatic refetch on window focus
-      refetchOnReconnect: true,
-      refetchInterval: 15 * 1000, // Refetch every 15 seconds for real-time updates
-      refetchIntervalInBackground: true // Keep polling even in background for real-time updates
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes
+      retry: 1,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      // refetchInterval: 1000 * 15, // 15 seconds
+      // refetchIntervalInBackground: true,
     },
     mutations: {
       retry: 1,
