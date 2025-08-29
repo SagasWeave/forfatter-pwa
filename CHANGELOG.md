@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2025-08-29
+
+### Added
+- Tailscale VPN installation and configuration for secure network connectivity
+- Device connected to Tailscale network with IP addresses:
+  - IPv4: `100.71.41.52`
+  - IPv6: `fd7a:115c:a1e0::5132:2934`
+- GitHub CLI (gh) installation and authentication
+- Repository migration to SagasWeave organization (https://github.com/SagasWeave/forfatter-pwa)
+- Automated repository cleanup script for organization management
+
+### Infrastructure
+- Established secure VPN connectivity via Tailscale
+- Connected to existing Tailscale network with other devices:
+  - iPad Pro 12.9 Gen 4 (`100.64.37.105`)
+  - iPhone 14 (`100.124.98.82`)
+  - MacBook Pro (`100.77.253.92`)
+  - Master1 server (`100.119.91.95`)
+
 ## [0.1.0] - 2024-07-26
 
 ### Added
@@ -21,3 +40,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Resolved hydration errors related to server-client rendering mismatches during theme switching.
+- Fixed application accessibility issues by exposing the development server through a public URL.
