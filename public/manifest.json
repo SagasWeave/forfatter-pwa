@@ -1,0 +1,54 @@
+{
+  "name": "Forfatter PWA",
+  "short_name": "Forfatter",
+  "description": "En moderne skriveapp til forfattere med AI-integration",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "da",
+  "categories": ["productivity", "writing", "education"],
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ny tekst",
+      "short_name": "Ny",
+      "description": "Opret ny tekst",
+      "url": "/?action=new",
+      "icons": [
+        {
+          "src": "/icon-192.svg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Kommandopalette",
+      "short_name": "Kommando",
+      "description": "Åbn kommandopalette",
+      "url": "/?action=command",
+      "icons": [
+        {
+          "src": "/icon-192.svg",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}
