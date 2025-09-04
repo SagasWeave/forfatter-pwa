@@ -94,6 +94,7 @@ forfatter-pwa/
 │   └── page.tsx         # Main page rendering EditorLayout
 ├── components/          # Shared UI components
 │   ├── ui/              # Reusable UI components (buttons, sheets, etc.)
+│   ├── mui/             # Material-UI components and theme integration
 │   ├── EditorLayout.tsx # Main application layout with panels
 │   ├── FlowView.tsx     # Document tree view and editor interface
 │   ├── Header.tsx       # Application header with navigation
@@ -112,6 +113,8 @@ forfatter-pwa/
   - `tree/`: Manages document structure operations
   - `file/`: Handles file content operations
 
+For detailed information about the app directory, see [App Directory README](app/README.md).
+
 ### Components Directory (`/components`)
 - **`EditorLayout.tsx`**: Main application container with:
   - [Header](file:///home/ubuntu/forfatter-pwa/components/Header.tsx#L21-L82) component for navigation
@@ -127,6 +130,14 @@ forfatter-pwa/
   - Menu items and actions
   - Theme switching capabilities
 - **`ui/`**: Collection of reusable UI components from Radix UI and custom components
+- **`mui/`**: Collection of MUI components and theme integration utilities
+
+For detailed information about the components directory, see [Components Directory README](components/README.md).
+
+### Lib Directory (`/lib`)
+Contains utility functions, API clients, and type definitions used throughout the application.
+
+For detailed information about the lib directory, see [Lib Directory README](lib/README.md).
 
 ## Key Components
 
