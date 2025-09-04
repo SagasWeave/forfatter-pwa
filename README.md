@@ -28,14 +28,6 @@ Forfatter PWA is a Danish writing application designed for authors who want a mo
 - **UI Components**: MUI Library, Radix UI, Lucide React Icons
 - **Animations**: Framer Motion
 
-## Design System
-
-The application follows a comprehensive design system to ensure consistency and prevent design corruption during AI-assisted development:
-
-- **Component Guidelines**: See [Component Development Guidelines](docs/component-guidelines.md)
-- **Design System**: See [Design System](docs/design-system.md)
-- **MUI Integration**: See [MUI Integration Guide](docs/mui-integration.md)
-
 ## Prerequisites
 
 - Node.js (v18 or higher)
@@ -100,9 +92,16 @@ forfatter-pwa/
 │   ├── Header.tsx       # Application header with navigation
 │   └── ...              # Other shared components
 ├── lib/                 # Utility functions, API client, and types
+├── docs/                # Development documentation and guidelines
 ├── public/              # Static assets
 └── rules/               # Project rules and guidelines (symlink)
 ```
+
+For detailed information about each directory, see:
+- [App Directory README](app/README.md)
+- [Components Directory README](components/README.md)
+- [Lib Directory README](lib/README.md)
+- [Docs Directory README](docs/README.md)
 
 ## Component Responsibilities
 
@@ -184,8 +183,12 @@ The application will be enhanced with modern UI/UX components using the Material
 - **Backward Compatibility**: Existing functionality will be preserved during the transition
 - **Performance Optimization**: Leveraging Next.js capabilities for optimal PWA performance
 
-### MUI Integration Documentation
-For detailed information about MUI integration, see [MUI Integration Guide](docs/mui-integration.md).
+### Design System Documentation
+For detailed information about the design system and component development guidelines, see:
+- [Design System](docs/design-system.md)
+- [Component Development Guidelines](docs/component-guidelines.md)
+- [MUI Integration Guide](docs/mui-integration.md)
+- [AI Prompt Template](docs/ai-prompt-template.md)
 
 ## Changelog
 
@@ -209,3 +212,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [TipTap](https://tiptap.dev/) - Headless editor framework
 - [Radix UI](https://www.radix-ui.com/) - Accessible UI components
+- [Material-UI](https://mui.com/) - React component library
