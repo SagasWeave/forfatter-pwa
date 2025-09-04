@@ -74,6 +74,40 @@ To start the production server:
 npm run start
 ```
 
+## Independent Deployment Architecture
+
+A key architectural principle of this system is that @forfatter-pwa and @sagaapp are designed as completely independent applications that can be deployed separately. This provides several significant benefits:
+
+### Benefits of Independent Deployment
+1. **Scalability**: Each application can scale independently based on its specific usage patterns
+2. **Resource Optimization**: Different resource requirements can be allocated appropriately
+3. **Fault Isolation**: Issues in one application don't directly affect the other
+4. **Deployment Flexibility**: Updates can be deployed independently without affecting the other application
+5. **Technology Evolution**: Each application can evolve its technology stack independently
+6. **Security Boundaries**: Independent security policies and access controls
+
+### Deployment Options
+The applications can be deployed in various configurations:
+- **Same Infrastructure**: Both applications on the same servers or containers
+- **Different Containers**: Each application in its own container on the same host
+- **Different Servers**: Each application on completely separate physical or virtual servers
+- **Different Networks**: Applications deployed in different network segments or data centers
+- **Hybrid Cloud**: One application on-premises, the other in the cloud
+
+### Integration with Saga Application
+When deployed independently, Forfatter PWA can integrate with the Saga application through well-defined APIs:
+
+```javascript
+// Example API integration
+const sagaApi = process.env.NEXT_PUBLIC_SAGA_API_URL || 'https://api.sagaapp.com/v1';
+
+// Fetch system status
+async function getSystemStatus() {
+  const response = await fetch(`${sagaApi}/status`);
+  return response.json();
+}
+```
+
 ## Project Structure
 
 ```
@@ -158,6 +192,7 @@ The application uses the following environment variables:
 - `NEXT_PUBLIC_API_BASE` - API base URL (defaults to `/api`)
 - `NEXT_PUBLIC_WS_BASE` - WebSocket URL for real-time features
 - `NEXT_PUBLIC_DEBUG` - Enable debug logging
+- `NEXT_PUBLIC_SAGA_API_URL` - URL for Saga application API (when integrated)
 
 ## Deployment
 
@@ -165,7 +200,21 @@ The application is configured for deployment with:
 
 - **HTTPS**: Via Tailscale and Caddy
 - **VPN**: Tailscale network connectivity
-- **Containerization**: (Planned) Docker support
+- **Containerization**: Docker support for flexible deployment
+
+### Deployment Options
+Forfatter PWA can be deployed independently in various configurations:
+- **Static Hosting**: Deploy to CDN or static hosting service
+- **Serverless**: Deploy to cloud function platform
+- **Containerized**: Deploy as Docker container
+- **Traditional Server**: Deploy to dedicated server or VPS
+
+### Integration Deployment
+When deployed alongside the Saga application:
+- **Same Server**: Both applications on the same server with reverse proxy
+- **Different Servers**: Applications on separate servers communicating via APIs
+- **Container Orchestration**: Deployed as separate services in Kubernetes
+- **Hybrid Cloud**: One application on-premises, the other in the cloud
 
 ## Design Requirements
 
