@@ -28,6 +28,14 @@ Forfatter PWA is a Danish writing application designed for authors who want a mo
 - **UI Components**: MUI Library, Radix UI, Lucide React Icons
 - **Animations**: Framer Motion
 
+## Design System
+
+The application follows a comprehensive design system to ensure consistency and prevent design corruption during AI-assisted development:
+
+- **Component Guidelines**: See [Component Development Guidelines](docs/component-guidelines.md)
+- **Design System**: See [Design System](docs/design-system.md)
+- **MUI Integration**: See [MUI Integration Guide](docs/mui-integration.md)
+
 ## Prerequisites
 
 - Node.js (v18 or higher)
