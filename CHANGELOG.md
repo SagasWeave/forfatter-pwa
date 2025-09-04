@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2025-09-04
+
+### Added
+- Material-UI (MUI) library integration for enhanced UI/UX
+- MUI theme provider component integrated with existing Next.js theme system
+- Example MUI button component to demonstrate usage
+- MUI integration documentation (docs/mui-integration.md)
+- MUI dependencies (@mui/material, @emotion/react, @emotion/styled) to package.json
+- Design requirements section in README.md
+- MUI integration guide reference in README.md
+
+### Updated
+- README.md with MUI integration information
+- Root layout (app/layout.tsx) to include MUI theme provider
+- Technology stack information in README.md to include MUI components
+
+### Changed
+- Enhanced UI/UX with modern Material-UI components
+- Improved design system with incremental implementation approach
+
 ## [0.1.2] - 2025-08-29
 
 ### Added
