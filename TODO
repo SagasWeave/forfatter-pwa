@@ -1,0 +1,35 @@
+# Forfatter PWA - TODO List
+
+## MUI Integration Tasks
+
+- [ ] Gradually replace existing Radix UI components with MUI equivalents
+- [ ] Customize MUI theme to match existing design language
+- [ ] Implement MUI-based navigation components
+- [ ] Replace button components with MUI Button variants
+- [ ] Update form elements to use MUI TextField, Select, etc.
+- [ ] Implement MUI-based dialog and modal components
+- [ ] Create MUI-based data display components (tables, lists, cards)
+- [ ] Ensure consistent styling across all MUI components
+- [ ] Optimize bundle size by only importing used MUI components
+- [ ] Test MUI components in both light and dark themes
+- [ ] Verify accessibility compliance for MUI components
+- [ ] Update documentation as MUI components are implemented
+
+## Design System Tasks
+
+- [ ] Create a comprehensive design system documentation
+- [ ] Define color palette and typography guidelines
+- [ ] Establish spacing and layout standards
+- [ ] Document component usage patterns
+- [ ] Create component variant guidelines
+- [ ] Define responsive design breakpoints
+- [ ] Establish animation and transition standards
+
+## General UI/UX Improvements
+
+- [ ] Enhance overall visual consistency
+- [ ] Improve user experience for document editing
+- [ ] Optimize mobile responsiveness
+- [ ] Implement better loading states and feedback
+- [ ] Add more intuitive navigation patterns
+- [ ] Improve accessibility throughout the application
